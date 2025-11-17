@@ -2,6 +2,7 @@ package edu.kh.servlet.controller;
 
 import java.io.IOException;
 
+import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -21,5 +22,21 @@ public class ExampleController3 extends HttpServlet {
 		
 		// getParameterValues : 같은 name 속성을 가진 모든 값을 String 배열 형태로 반환
 		String[] optionArr = req.getParameterValues("opt");
+		
+		System.out.println(orderer);
+		System.out.println(coffee);
+		System.out.println(type);
+		System.out.println(option);
+		System.out.println(optionArr); // 주소값
+		
+		// opt 미선택 > optionArr == null
+		if(optionArr != null) {
+			for(String opt : optionArr) {
+				System.out.println(opt);
+			}
+		}
+		
+		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/result2.jsp");
+		dispatcher.forward(req, resp);
 	}
 }
