@@ -25,10 +25,10 @@ public class BookServlet extends HttpServlet {
 		bookList.add(new Book("JSP란 무엇인가", "철수", 80000));
 		bookList.add(new Book("Spring이란 무엇인가", "유리", 60000));
 		
-		// request scope 객체에 bookList를 세팅 (현재 Servlet에서부터 위임된 JSP까지 유효)
+		// bookList를 요청 위임된 JSP에서도 유지하여 사용할 수 있도록 request scope 객체에 bookList를 세팅
 		req.setAttribute("bookList", bookList);
 		
-		// 응답 > JSP로 위임하여 응답 페이지 처리
+		// 응답 > JSP로 위임하여 응답 페이지 처리 (webapp 폴더 기준으로 경로 작성)
 		req.getRequestDispatcher("/WEB-INF/views/book/bookList.jsp").forward(req, resp);
 	}
 }
