@@ -8,16 +8,12 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Todo List</title>
-	
+	<link rel = "stylesheet" href = "/resources/css/main.css">
 </head>
 <body>
-	
-
 	<h1>Todo List</h1>
 	
-	<h3>전체 Todo 개수 : 개 / 
-		완료된 Todo 개수 : 개</h3>
-
+	<h3>전체 Todo 개수 : ${fn:length(todoList)}개 / 완료된 Todo 개수 : ${completeCount}개</h3>
 	<hr>
 	
 	<h4>할 일 추가</h4>
@@ -32,7 +28,6 @@
 	
 		<button>추가하기</button>
 	</form>
-	
 	
 	<hr>
 	
@@ -49,12 +44,38 @@
 		</thead>
 		
 		<tbody>
-			
-		
+			<c:forEach items="${todoList}" var="todo" varStatus="vs">
+				<tr>
+					<th>${vs.count}</th>
+					<th>${todo.todoNo}</th>
+					<td>
+						<a href="#">${todo.todoTitle}</a>
+					</td>
+					<th>
+						<%-- todo의 todoComplete가 true 라면 O 출력 --%>
+						<c:if test="${todo.todoComplete}">O</c:if>
+						
+						<%-- todo의 todoComplete가 true 아니라면 X 출력 --%>
+						<c:if test="${not todo.todoComplete}">X</c:if>
+					</th>
+					<td>${todo.regDate}</td>
+				</tr>
+			</c:forEach>
 		</tbody>
 	</table>
 	
+	<%-- session 범위에 message가 있는 경우에만 script 태그 생성하기 --%>
+	<c:if test = "${not empty sessionScope.message}">
+	 <script>
+		// JSP의 해석 순위
+		// 1. Java (EL/JSTL)
+		// 2. Front (HTML/CSS/JS)
+		alert("${message}");
+	</script>
 	
-	
+	<%-- message를 한 번만 사용하고 제거 --%>
+	<c:remove var="message" scope = "session"/>
+	</c:if>
+
 </body>
 </html>

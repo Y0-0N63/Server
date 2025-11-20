@@ -5,4 +5,4 @@
 	"/" 요청이 오면 "/main" 서블릿으로 요청 위임
 --%>
 
-<jsp:forward page = "/main"/>
+<jsp:forward page="/main" />
