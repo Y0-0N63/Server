@@ -56,7 +56,8 @@ public class TodoListDAOImpl implements TodoListDAO {
 				// Builder 패턴 : 특정값으로 초기화된 객체를 쉽게 만드는 방법
 				// -> Lombok에서 제공하는 @Builder 어노테이션을 DTO에 작성해 준비
 				boolean complete = rs.getInt("TODO_COMPLETE") == 1;
-				Todo todo = Todo.builder().todoNo(rs.getInt("TODO_NO")).todoTitle(rs.getString("TODO_TITLE")).regDate(rs.getString("REG_DATE")).build();
+				Todo todo = Todo.builder().todoNo(rs.getInt("TODO_NO")).todoTitle(rs.getString("TODO_TITLE")).todoComplete(complete)
+						.regDate(rs.getString("REG_DATE")).build();
 				todoList.add(todo);
 			}
 		} finally {
@@ -177,13 +178,15 @@ public class TodoListDAOImpl implements TodoListDAO {
 		try {
 			String sql = prop.getProperty("todoUpdate");
 			pstmt = conn.prepareStatement(sql);
+			
 			pstmt.setString(1, title);
 			pstmt.setString(2, detail);
 			pstmt.setInt(3, todoNo);
+			
+			result = pstmt.executeUpdate();
 		} finally {
 			close(pstmt);
 		}
-		
 		return result;
 	}
 }

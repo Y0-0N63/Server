@@ -101,7 +101,7 @@ public class TodoListServiceImpl implements TodoListService {
 		else			rollback(conn);
 		
 		close(conn);
+		
 		return result;
 	}
-
 }

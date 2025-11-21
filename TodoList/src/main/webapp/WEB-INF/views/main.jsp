@@ -68,15 +68,15 @@
 	
 	<%-- session 범위에 message가 있는 경우에만 script 태그 생성하기 --%>
 	<c:if test = "${not empty sessionScope.message}">
-	 <script>
-		// JSP의 해석 순위
-		// 1. Java (EL/JSTL)
-		// 2. Front (HTML/CSS/JS)
-		alert("${message}");
-	</script>
+	 	<script>
+			// JSP의 해석 순위
+			// 1. Java (EL/JSTL)
+			// 2. Front (HTML/CSS/JS)
+			alert("${message}");
+		</script>
 	
-	<%-- message를 한 번만 사용하고 제거 --%>
-	<c:remove var="message" scope = "session"/>
+		<%-- message를 한 번만 사용하고 제거 --%>
+		<c:remove var="message" scope = "session"/>
 	</c:if>
 
 	<%-- js 연결 --%>
