@@ -13,4 +13,9 @@ public interface TodoListDAO {
 
 	int todoAdd(Connection conn, String title, String detail) throws Exception;
 
+	Todo todoDetail(Connection conn, int todoNo) throws Exception;
+
+	int todoComplete(Connection conn, int todoNo) throws Exception;
+
+	int deleteTodo(Connection conn, int todoNo) throws Exception;
 }

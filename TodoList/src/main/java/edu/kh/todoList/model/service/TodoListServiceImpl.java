@@ -1,7 +1,10 @@
 package edu.kh.todoList.model.service;
 
 // JDBCTemplate의 모든 static 키워드로 선언된 메서드 > JDBCTemplate.getConnection();에서 getConnection()만 작성해도 가능하도록
-import static edu.kh.todoList.common.JDBCTemplate.*;
+import static edu.kh.todoList.common.JDBCTemplate.close;
+import static edu.kh.todoList.common.JDBCTemplate.commit;
+import static edu.kh.todoList.common.JDBCTemplate.getConnection;
+import static edu.kh.todoList.common.JDBCTemplate.rollback;
 
 import java.sql.Connection;
 import java.util.HashMap;
@@ -46,6 +49,45 @@ public class TodoListServiceImpl implements TodoListService {
 	
 		if(result > 0) commit(conn);
 		else			rollback(conn);
+		
+		return result;
+	}
+
+	@Override
+	public Todo todoDetail(int todoNo) throws Exception {
+		Connection conn = getConnection();
+		
+		Todo todo = dao.todoDetail(conn, todoNo);
+		
+		close(conn);
+		
+		return todo;
+	}
+
+	@Override
+	public int todoComplete(int todoNo) throws Exception {
+		Connection conn = getConnection();
+		
+		int result = dao.todoComplete(conn, todoNo);
+		
+		if(result > 0) commit(conn);
+		else			rollback(conn);
+		
+		close(conn);
+		
+		return result;
+	}
+
+	@Override
+	public int deleteTodo(int todoNo) throws Exception {
+		Connection conn = getConnection();
+		
+		int result = dao.deleteTodo(conn, todoNo);
+		
+		if(result > 0) commit(conn);
+		else			rollback(conn);
+		
+		close(conn);
 		
 		return result;
 	}
