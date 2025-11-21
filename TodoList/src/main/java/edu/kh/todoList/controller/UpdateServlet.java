@@ -37,4 +37,40 @@ public class UpdateServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 	}
+	
+	/* 요청 주소가 같지만 데이터 제출 방식(GET/POST)가 다르다면
+	 * 하나의 서블릿 클래스에서 각각의 메서드(doGet(), doPost())를 만들어 처리할 수 있음 */
+	
+	// 할 일 제목, 내용 수정 POST 요청
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		try {
+			// 전달받은 파라미터 얻어오기 (제목, 상세 내용, todoNo)
+			String title = req.getParameter("title");
+			String detail = req.getParameter("detail");
+			int todoNo = Integer.parseInt(req.getParameter("todoNo"));
+			
+			TodoListService service = new TodoListServiceImpl();
+			int result = service.todoUpdate(todoNo, title, detail);
+			
+			String url = null;
+			String message = null;
+			
+			// 수정 성공 시 > 상세 조회 페이지로 redirect, message "수정되었습니다"
+			if(result > 0) {
+				url = "/todo/detail?todoNo=" + todoNo;
+				message = "수정되었습니다.";
+			} else {
+				// 수정 실패 시 > 수정 화면으로 redirect, message "수정 실패"
+				url = "/todo/update?todoNo=" + todoNo;
+				message = "수정 실패";
+			}
+			
+			req.getSession().setAttribute("message", message);
+			resp.sendRedirect(url);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 }

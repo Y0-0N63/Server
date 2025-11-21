@@ -42,4 +42,12 @@
 		DELETE FROM TB_TODO
 		WHERE TODO_NO = ?
 	</entry>
+	
+	<!-- 할 일 수정 -->
+	<entry key = "todoUpdate">
+		UPDATE TB_TODO
+		SET TODO_TITLE = ?,
+			TODO_DETAIL = ?
+		WHERE TODO_NO = ?
+	</entry>
 </properties>

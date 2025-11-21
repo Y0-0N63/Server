@@ -19,4 +19,6 @@ public interface TodoListService {
 
 	int deleteTodo(int todoNo) throws Exception;
 
+	int todoUpdate(int todoNo, String title, String detail) throws Exception;
+
 }
